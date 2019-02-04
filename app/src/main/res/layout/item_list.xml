@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_cel"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="6dp"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="135dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="30dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="90dp"
+                android:layout_marginRight="100dp"
                 tools:text="Nome" />
 
             <LinearLayout
@@ -36,7 +40,7 @@
                     android:id="@+id/tv_lastName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="67dp"
+                    android:layout_marginLeft="52dp"
                     tools:text="Sobrenome" />
 
             </LinearLayout>
@@ -46,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="90dp"
+                android:layout_marginRight="107dp"
                 tools:text="CPF" />
 
             <TextView
@@ -54,27 +58,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="85dp"
+                android:layout_marginRight="100dp"
                 tools:text="Celular" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="66dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="39dp"
-            android:padding="10dp">
-
-            <ImageButton
-                android:id="@+id/btn_edit"
-                android:layout_width="30dp"
-                android:layout_height="32dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/edit" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-1dp"
+            android:contentDescription="null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/edit" />
 
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
+
+
 
 
