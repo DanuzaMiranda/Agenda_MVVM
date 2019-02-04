@@ -3,10 +3,12 @@ package com.everis.prj_appointmentbook_app.View;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -86,21 +88,58 @@ public class ListFragment extends Fragment {
 
             }
         });
+
+        //Swiped old
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
             @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder){
+                 int dragFlags =  ItemTouchHelper.ACTION_STATE_IDLE;
+                 int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                 return makeMovementFlags(dragFlags,swipeFlags);
+            }
+
+           @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
-            }
-
+           }
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                contactViewModel.delete(adapter.getContactAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(context, "Contato apagado!", Toast.LENGTH_SHORT).show();
-            }
+                 deleteSwipe(viewHolder);
+           }
         }).attachToRecyclerView(rv_list);
-
     }
+
+    private void deleteSwipe(final RecyclerView.ViewHolder viewHolder) {
+        AlertDialog.Builder alertDialog;
+        alertDialog = new AlertDialog.Builder(context);
+
+        //Configurar o AlertDialog
+        alertDialog.setTitle("Excluir Contado");
+        alertDialog.setMessage("Você tem certeza que deseja excluir este contado da sua agenda?");
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, "Contato apagado!", Toast.LENGTH_SHORT).show();
+                contactViewModel.delete(adapter.getContactAt(viewHolder.getAdapterPosition()));
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, "Cancelado!", Toast.LENGTH_SHORT).show();
+                contactViewModel.update(adapter.getContactAt(viewHolder.getAdapterPosition()));
+            }
+        });
+
+        AlertDialog alert =alertDialog.create();
+        alert.show();
+    }
+
     private void initializeAction() {
         getActivity().findViewById(R.id.btn_add).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.tv_main).setVisibility(View.VISIBLE);
